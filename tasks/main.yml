@@ -1,0 +1,26 @@
+---
+- name: install modules required for http checks
+  apt: name={{ item }}
+  with_items:
+    - python-httplib2
+
+- name: create phoenix directory
+  file: dest={{ phoenix_distr_prefix }} state=directory
+
+- name: download phoenix
+  get_url: url=http://apache-mirror.rbc.ru/pub/apache/phoenix/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}/bin/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin.tar.gz
+           dest={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin.tar.gz
+  
+- name: unarchive
+  unarchive: src={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin.tar.gz dest={{ phoenix_distr_prefix }} copy=no
+
+- name: create a symlink for phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar
+  file: state=link
+        src={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar
+        dest={{ hbase_distr_prefix }}/lib/phoenix-HBase-server.jar
+  register: phoenix_jar
+  tags: link
+
+# - file: dest=/opt/hbase/lib/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar state=absent
+#   when: remove is defined
+#   tags: remove
