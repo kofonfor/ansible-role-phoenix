@@ -17,7 +17,7 @@
 - name: create a symlink for phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar
   file: state=link
         src={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar
-        dest={{ hbase_distr_prefix }}/lib/phoenix-HBase-server.jar
+        dest={{ hbase_distr_prefix }}-{{ env_name }}-{{ hbase_version }}/lib/phoenix-HBase-server.jar
   register: phoenix_jar
   tags: link
 
