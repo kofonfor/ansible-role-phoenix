@@ -24,3 +24,28 @@
 # - file: dest=/opt/hbase/lib/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar state=absent
 #   when: remove is defined
 #   tags: remove
+
+- name: create a symlink for hbase-site.xml
+  file: state=link
+        src=/etc/hbase-{{ env_name }}/hbase-site.xml
+        dest={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/bin/hbase-site.xml
+        force=yes
+  tags: config
+
+- name: create a symlink for hbase-policy.xml
+  file: state=link
+        src=/etc/hbase-{{ env_name }}/hbase-policy.xml
+        dest={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/bin/hbase-policy.xml
+  tags: config
+
+- name: create a symlink for hdfs-site.xml
+  file: state=link
+        src=/etc/hadoop-{{ env_name }}/hdfs-site.xml
+        dest={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/bin/hdfs-site.xml
+  tags: config
+
+- name: create a symlink for core-site.xml
+  file: state=link
+        src=/etc/hadoop-{{ env_name }}/core-site.xml
+        dest={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/bin/core-site.xml
+  tags: config
