@@ -14,6 +14,9 @@
 - name: unarchive
   unarchive: src={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin.tar.gz dest={{ phoenix_distr_prefix }} copy=no
 
+- name: create a -current symlink
+  file: state=link src={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin dest={{ phoenix_distr_prefix }}/apache-phoenix-current-bin
+
 - name: create a symlink for phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar
   file: state=link
         src={{ phoenix_distr_prefix }}/apache-phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-bin/phoenix-{{ phoenix_version }}-HBase-{{ phoenix_hbase_version }}-server.jar
