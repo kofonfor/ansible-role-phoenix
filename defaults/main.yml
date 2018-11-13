@@ -1,6 +1,6 @@
 ---
 env_name: default
 hbase_distr_prefix: /opt/hbase
-phoenix_version: "4.14.0"
+phoenix_version: "4.14.1"
 phoenix_hbase_version: "1.4"
 phoenix_distr_prefix: "/opt/phoenix"
